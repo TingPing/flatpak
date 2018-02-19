@@ -4329,6 +4329,12 @@ flatpak_extension_matches_reason (const char *extension_id,
       /* Used for Intel VAAPI driver extension */
       return flatpak_get_have_intel_gpu ();
     }
+  else if (strcmp (reason, "on-gnome-desktop") == 0)
+    {
+      const char *desktop = g_getenv ("XDG_CURRENT_DESKTOP");
+      /* Used for Qt platform extension */
+      return !g_strcmp0 (desktop, "GNOME") || !g_strcmp0 (desktop, "GNOME-classic");
+    }
 
   return FALSE;
 }
